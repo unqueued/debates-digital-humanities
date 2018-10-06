@@ -1,0 +1,35 @@
+Of course, there’s on online interactive version here:
+http://dhdebates.gc.cuny.edu/
+
+And I could purchase the kindle edition, and extract the pdf.
+
+However, here is my target:
+http://muse.jhu.edu/books/9780816681440
+
+Free when accessed via institution.
+
+OK, here’s how I did it.
+
+First, got list of links:
+http://brettterpstra.com/bookmarklets/grablinks.js
+Bookmarklet
+
+I fucking love how it let you select a div, based on which div you were hovering over.
+(I should do that with web clipper)
+
+Anyway, converted markdown to html, then
+
+extracted actual urls with:
+$ sed -n 's/.*href="\([^"]*\).*/\1/p' muse_list.html
+via
+http://stackoverflow.com/questions/21264626/how-to-strip-out-all-of-the-links-of-an-html-file-in-bash-or-grep-or-batch-and-s
+
+Then, used cliget to capture the curl download link, and extract the cookie.
+
+tested it on first pdf:
+wget --header 'Cookie: session=71.125.218.92.1449187831221375; wayf_entity_id=urn%3Amace%3Aincommon%3Anyu.edu; shib_target_url=muse.jhu.edu%2Fbooks%2F9780816681440' 'http://muse.jhu.edu/books/9780816681440/9780816681440-1.pdf'
+
+wget --input-file=download.list failed, because not authenticated.
+
+wget --header 'Cookie: session=71.125.218.92.1449187831221375; wayf_entity_id=urn%3Amace%3Aincommon%3Anyu.edu; shib_target_url=muse.jhu.edu%2Fbooks%2F9780816681440' --input-file=download.list
+
